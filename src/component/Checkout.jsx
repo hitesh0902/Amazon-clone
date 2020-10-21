@@ -1,48 +1,36 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Container from "@material-ui/core/Container";
 import { useStateValue } from "../store/StateProvider";
-import CheckoutProduct from "./CheckoutProduct";
-import { Link } from "react-router-dom";
-import Subtotal from "./Subtotal";
+import EmptyBasket from "./EmptyBasket";
+import ProductBasket from "./ProductBasket";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    // backgroundColor: "#eaeded8e",
+    backgroundColor: "#f5f5f5",
+  },
+}));
 
 const Checkout = () => {
+  const classes = useStyles();
+
   const [{ basket }] = useStateValue();
+
   return (
-    <div className="checkout content">
-      {basket?.length === 0 ? (
-        <div className="checkout__containerEmpty">
-          <img
-            src="https://m.media-amazon.com/images/G/31/cart/empty/kettle-desaturated._CB424694257_.svg"
-            alt=""
-            className="checkout__containerEmpty-image"
-          />
-          <div className="checkout__containerEmpty-box">
-            <h2>Your Amazon Basket is empty</h2>
-            <Link to="/" className="button">
-              Start Shopping
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <div className="checkout__containerContent">
-          <h2>Your Amazon Basket</h2>
-          {/* List of all the checkout products */}
-          {basket?.map((item) => (
-            <CheckoutProduct
-              //   key={item.id}
-              id={item.id}
-              title={item.title}
-              image={item.image}
-              price={item.price}
-              rating={item.rating}
-            />
-          ))}
-        </div>
-      )}
-      {basket.length > 0 && (
-        <div className="">
-          <Subtotal />
-        </div>
-      )}
+    <div className={classes.root}>
+      <Toolbar />
+      <Container
+        maxWidth="lg"
+        style={{
+          paddingTop: 20,
+          paddingBottom: 20,
+        }}
+      >
+        {basket.length !== 0 ? <ProductBasket /> : <EmptyBasket />}
+      </Container>
     </div>
   );
 };

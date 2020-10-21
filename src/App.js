@@ -1,38 +1,48 @@
 import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Navbar from "./component/Navbar";
-import Homepage from "./component/Homepage";
-import Footer from "./component/Footer";
 import SignIn from "./component/SignIn";
 import SignUp from "./component/SignUp";
-import Checkout from "./component/Checkout";
+import HomeView from "./layout/HomeView";
+import CheckoutView from "./layout/CheckoutView";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#232f3e",
+    },
+    secondary: {
+      main: "#FFB400",
+    },
+  },
+});
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Switch>
-          <Route path="/signin">
-            <SignIn />
-          </Route>
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <CssBaseline />
+          <Switch>
+            <Route exact path="/">
+              <HomeView />
+            </Route>
 
-          <Route path="/signup">
-            <SignUp />
-          </Route>
+            <Route path="/signin">
+              <SignIn />
+            </Route>
 
-          <Route path="/checkout">
-            <Navbar />
-            <Checkout />
-            <Footer />
-          </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
 
-          <Route path="/">
-            <Navbar />
-            <Homepage />
-            <Footer />
-          </Route>
-        </Switch>
-      </div>
+            <Route path="/checkout">
+              <CheckoutView />
+            </Route>
+          </Switch>
+        </div>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

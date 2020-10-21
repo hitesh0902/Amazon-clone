@@ -1,101 +1,133 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
-const Footer = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.primary.main,
+    padding: "50px 0",
+    flexShrink: 0,
+  },
+  text: {
+    color: "white",
+  },
+  footerLinks: {
+    [theme.breakpoints.up("sm")]: {
+      width: 180,
+      margin: "0 auto",
+    },
+  },
+  footerLogo: {
+    borderTop: "1px solid rgba(255,255,255,0.4)",
+    marginTop: theme.spacing(3),
+    paddingTop: theme.spacing(3),
+  },
+  logo: {
+    width: "100%",
+    objectFit: "contain",
+  },
+}));
+
+const footerLinks = [
+  {
+    title: "Get To Know Us",
+    links: [
+      "About Us",
+      "Careers",
+      "Press Releases",
+      "Amazon Cares",
+      "Gift A Smile",
+    ],
+  },
+  {
+    title: "Connect With Us",
+    links: ["Facebook", "Twitter", "Instagram"],
+  },
+  {
+    title: "Make Money With Us",
+    links: [
+      "Sell on Amazon",
+      "Sell under Amazon Accelerator",
+      "Become an Affiliate",
+      "Fulfilment by Amazon",
+      "Advertise Your Products",
+    ],
+  },
+  {
+    title: "Let Us Help You",
+    links: [
+      "Your Account",
+      "Return Center",
+      "100% Purchase Protection",
+      "Amazon App Download",
+      "Amazon Assitant Download",
+      "Help",
+    ],
+  },
+];
+
+const Footer1 = () => {
+  const classes = useStyles();
   return (
-    <footer className="footer">
-      <div className="footer__container">
-        <div className="footer_row">
-          <div>
-            <h2 className="footer__title">Get to Know Us</h2>
-            <ul className="footer__titleList">
-              <li>
-                <Link to="/">About Us</Link>
-              </li>
-              <li>
-                <Link to="/">Careers</Link>
-              </li>
-              <li>
-                <Link to="/">Press Releases</Link>
-              </li>
-              <li>
-                <Link to="/">Amazon Cares</Link>
-              </li>
-              <li>
-                <Link to="/">Gift a Smile</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="footer__title">Connect With Us</h2>
-            <ul className="footer__titleList">
-              <li>
-                <Link to="/">Facebook</Link>
-              </li>
-              <li>
-                <Link to="/">Twitter</Link>
-              </li>
-              <li>
-                <Link to="/">Instagram</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="footer__title">Make Money With Us</h2>
-            <ul className="footer__titleList">
-              <li>
-                <Link to="/">Sell on Amazon</Link>
-              </li>
-              <li>
-                <Link to="/">Sell under Amazon Accelerator</Link>
-              </li>
-              <li>
-                <Link to="/">Become an Affiliate</Link>
-              </li>
-              <li>
-                <Link to="/">Fulfilment by Amazon</Link>
-              </li>
-              <li>
-                <Link to="/">Advertise Your Products</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="footer__title">Let Us Help You</h2>
-            <ul className="footer__titleList">
-              <li>
-                <Link to="/">Your Account</Link>
-              </li>
-              <li>
-                <Link to="/">Returns Centre</Link>
-              </li>
-              <li>
-                <Link to="/">100% Purchase Protection</Link>
-              </li>
-              <li>
-                <Link to="/">Amazon App Download</Link>
-              </li>
-              <li>
-                <Link to="/">Amazon Assistant Download</Link>
-              </li>
-              <li>
-                <Link to="/">Help</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="footer__logo">
-        <Link to="/">
-          <img
-            className="footer__image"
-            src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
-            alt="brand-logo"
-          />
-        </Link>
-      </div>
+    <footer className={classes.root}>
+      <Container maxWidth="lg" className={classes.box}>
+        <Grid container>
+          {footerLinks.map((item) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              key={item.title}
+              style={{ marginBottom: 10 }}
+            >
+              <Box className={classes.footerLinks}>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  className={classes.text}
+                >
+                  {item.title}
+                </Typography>
+                <Box display="flex" flexDirection="column">
+                  {item.links.map((link, index) => (
+                    <Typography
+                      key={index}
+                      gutterBottom
+                      variant="caption"
+                      className={classes.text}
+                    >
+                      <Link href="#" style={{ color: "inherit" }}>
+                        {link}
+                      </Link>
+                    </Typography>
+                  ))}
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+        <Box
+          display="flex"
+          justifyContent="center"
+          className={classes.footerLogo}
+        >
+          <RouterLink to="/" style={{ width: 100 }}>
+            <img
+              className={classes.logo}
+              src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+              alt="logo"
+            />
+          </RouterLink>
+        </Box>
+      </Container>
     </footer>
   );
 };
 
-export default Footer;
+export default Footer1;

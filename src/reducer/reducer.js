@@ -1,13 +1,12 @@
 export const initialState = {
   basket: [
-    {
-      id: 1,
-      title:
-        "Echo Dot (3rd Gen) – New and improved smart speaker with Alexa (Black)",
-      price: 50.49,
-      rating: 5,
-      image: "https://m.media-amazon.com/images/I/61EXU8BuGZL._AC_UY218_.jpg",
-    },
+    // {
+    //   id: 1,
+    //   title: "Echo Dot (3rd Gen) – New and improved smart speaker with Alexa",
+    //   price: 50.49,
+    //   rating: 5,
+    //   image: "https://m.media-amazon.com/images/I/61EXU8BuGZL._AC_UY218_.jpg",
+    // },
   ],
   user: null,
 };

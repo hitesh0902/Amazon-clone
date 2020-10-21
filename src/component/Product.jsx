@@ -1,21 +1,42 @@
 import React from "react";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import Star from "@material-ui/icons/Star";
 import { useStateValue } from "../store/StateProvider";
 
-const Product = ({ products }) => {
-  // console.log(products);
-  const [{ basket }, dispatch] = useStateValue();
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    zIndex: 10,
+    backgroundColor: "white",
+    maxWidth: 345,
+  },
+  cardActionArea: {
+    background: "inherit",
+    "&:hover": {
+      cursor: "default",
+    },
+  },
+  media: {
+    width: "100%",
+    height: 150,
+    objectFit: "contain",
+    marginTop: 8,
+  },
+}));
 
-  const product = products.map((product) => {
-    return product.id;
-  });
+const Product = ({ id, title, price, image, rating }) => {
+  const classes = useStyles();
 
-  // console.log(title);
+  const [, dispatch] = useStateValue();
 
-  const addToBasket = (id, title, price, rating, image) => {
-    // if (product.id === id) {
-    //   dispatch({ type: "ADD_TO_BASKET", item: { id: id } });
-    // }
+  const addToBasket = () => {
     dispatch({
       type: "ADD_TO_BASKET",
       item: {
@@ -28,45 +49,54 @@ const Product = ({ products }) => {
     });
   };
   return (
-    <React.Fragment>
-      {products.map((product) => {
-        return (
-          <div className="product" key={product.id}>
-            <div className="product__info">
-              <p>{product.title}</p>
-              <p className="product__price">
-                <strong>$</strong>
-                <strong>{product.price}</strong>
-              </p>
-              <div className="product__rating">
-                {/* Creating an array of size $rating */}
-                {Array(product.rating)
-                  .fill()
-                  .map((_, index) => (
-                    <span key={index}>
-                      <Star className="product__star" />
-                    </span>
-                  ))}
-              </div>
-            </div>
-            <img src={product.image} alt="" />
-            <button
-              onClick={() =>
-                addToBasket(
-                  product.id,
-                  product.title,
-                  product.price,
-                  product.rating,
-                  product.image
-                )
-              }
-            >
-              Add to basket
-            </button>
-          </div>
-        );
-      })}
-    </React.Fragment>
+    <Card className={classes.root}>
+      <CardActionArea className={classes.cardActionArea}>
+        <CardMedia
+          className={classes.media}
+          component="img"
+          image={image}
+          title={title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="body1">
+            {title}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="body1"
+            color="textSecondary"
+            component="p"
+          >
+            <strong>$</strong> {price}
+          </Typography>
+          <Typography>
+            {Array(rating)
+              .fill()
+              .map((_, index) => (
+                <span key={index}>
+                  <Star style={{ color: "gold" }} />
+                </span>
+              ))}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          backgroundColor: "inherit",
+        }}
+      >
+        <Button
+          onClick={addToBasket}
+          variant="contained"
+          size="medium"
+          color="secondary"
+        >
+          Add to Cart
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 
