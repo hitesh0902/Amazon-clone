@@ -66,12 +66,12 @@ const ProductBasket = () => {
         alignItems="flex-start"
         className={classes.box}
       >
-        <Grid container spacing={4} className={classes.grid}>
+        <Grid container spacing={2} className={classes.grid}>
           {basket.map((item) => (
             <Grid
               key={item.id}
               item
-              xs={12}
+              xs={6}
               sm={6}
               lg={4}
               style={{ display: "flex", justifyContent: "center" }}

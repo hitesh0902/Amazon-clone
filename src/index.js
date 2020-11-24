@@ -5,12 +5,15 @@ import * as serviceWorker from "./serviceWorker";
 import "./style.css";
 import { StateProvider } from "./store/StateProvider";
 import reducer, { initialState } from "./reducer/reducer";
+import { ProductsProvider } from "./store/ProductsContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}>
-      <App />
-    </StateProvider>
+    <ProductsProvider>
+      <StateProvider initialState={initialState} reducer={reducer}>
+        <App />
+      </StateProvider>
+    </ProductsProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

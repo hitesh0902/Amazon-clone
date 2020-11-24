@@ -5,6 +5,7 @@ import SignIn from "./component/SignIn";
 import SignUp from "./component/SignUp";
 import HomeView from "./layout/HomeView";
 import CheckoutView from "./layout/CheckoutView";
+import ProductView from "./layout/ProductView";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -25,21 +26,11 @@ function App() {
         <div className="App">
           <CssBaseline />
           <Switch>
-            <Route exact path="/">
-              <HomeView />
-            </Route>
-
-            <Route path="/signin">
-              <SignIn />
-            </Route>
-
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-
-            <Route path="/checkout">
-              <CheckoutView />
-            </Route>
+            <Route exact path="/" component={HomeView} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/checkout" component={CheckoutView} />
+            <Route path="/:id" component={ProductView} />
           </Switch>
         </div>
       </ThemeProvider>

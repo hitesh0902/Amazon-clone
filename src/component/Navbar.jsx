@@ -218,7 +218,9 @@ const Navbar = () => {
               color="inherit"
               style={{ padding: 0 }}
             >
-              <MoreIcon />
+              <Badge badgeContent={basket.length ? "!" : null} color="error">
+                <MoreIcon />
+              </Badge>
             </IconButton>
           </div>
         </Toolbar>

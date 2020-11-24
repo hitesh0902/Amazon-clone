@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Star from "@material-ui/icons/Star";
 import { useStateValue } from "../store/StateProvider";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardActionArea: {
     background: "inherit",
-    "&:hover": {
-      cursor: "default",
-    },
+    // "&:hover": {
+    //   cursor: "default",
+    // },
   },
   media: {
     width: "100%",
@@ -50,36 +51,41 @@ const Product = ({ id, title, price, image, rating }) => {
   };
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.cardActionArea}>
-        <CardMedia
-          className={classes.media}
-          component="img"
-          image={image}
-          title={title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="body1">
-            {title}
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="body1"
-            color="textSecondary"
-            component="p"
-          >
-            <strong>$</strong> {price}
-          </Typography>
-          <Typography>
-            {Array(rating)
-              .fill()
-              .map((_, index) => (
-                <span key={index}>
-                  <Star style={{ color: "gold" }} />
-                </span>
-              ))}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <RouterLink
+        to={`/${id}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <CardActionArea className={classes.cardActionArea}>
+          <CardMedia
+            className={classes.media}
+            component="img"
+            image={image}
+            title={title}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="body1">
+              {title}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body1"
+              color="textSecondary"
+              component="p"
+            >
+              <strong>$</strong> {price}
+            </Typography>
+            <Typography>
+              {Array(rating)
+                .fill()
+                .map((_, index) => (
+                  <span key={index}>
+                    <Star style={{ color: "gold" }} />
+                  </span>
+                ))}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </RouterLink>
       <CardActions
         style={{
           display: "flex",

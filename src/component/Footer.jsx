@@ -71,7 +71,7 @@ const footerLinks = [
   },
 ];
 
-const Footer1 = () => {
+const Footer = () => {
   const classes = useStyles();
   return (
     <footer className={classes.root}>
@@ -130,4 +130,4 @@ const Footer1 = () => {
   );
 };
 
-export default Footer1;
+export default Footer;

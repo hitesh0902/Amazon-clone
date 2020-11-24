@@ -5,17 +5,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import Banner from "./Banner";
 import Product from "./Product";
+import { useProducts } from "../store/ProductsContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  banner: {
-    zIndex: -1,
-  },
   grid: {
-    padding: "0 1%",
-    marginTop: -50,
+    marginTop: -65,
     [theme.breakpoints.up("sm")]: {
       marginTop: -100,
     },
@@ -31,21 +28,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Homepage = ({ banners, products }) => {
+const Homepage = ({ banners }) => {
   const classes = useStyles();
+
+  const { products } = useProducts();
+
   return (
     <div
       className={classes.root}
       style={{ backgroundColor: "#eaeded", paddingBottom: 20 }}
     >
       <Toolbar />
-      <Container maxWidth="xl" style={{ padding: "0 3%" }}>
-        <Banner banners={banners} className={classes.banner} />
+      <Banner banners={banners} />
+      <Container maxWidth="xl" style={{ padding: "0 2%" }}>
         <Grid container spacing={2} className={classes.grid}>
           {products.map((product) => (
             <Grid
               item
-              xs={12}
+              xs={6}
               sm={6}
               md={4}
               lg={3}
@@ -54,6 +54,7 @@ const Homepage = ({ banners, products }) => {
               style={{
                 display: "flex",
                 justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Product
